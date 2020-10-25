@@ -1,4 +1,4 @@
-# Vue.js 3 Laboratory
+# Vue.js 3 with TypeScript Laboratory
 
 A place to hold random Vue.js 3 experiments.
 
