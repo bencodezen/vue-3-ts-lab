@@ -2,7 +2,7 @@
 import { computed, defineComponent, ref } from 'vue'
 import { posts } from '../data/mockDatabase'
 import TimelinePost from './TimelinePost.vue'
-import { Timeframe } from '../types'
+import { Timeframe, Post } from '../types'
 
 export default defineComponent({
   components: {
