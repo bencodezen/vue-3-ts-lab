@@ -1,7 +1,14 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <Timeline />
+    <Suspense>
+      <template v-slot:default>
+        <Timeline />
+      </template>
+      <template v-slot:fallback>
+        Loading...
+      </template>
+    </Suspense>
   </div>
 </template>
 

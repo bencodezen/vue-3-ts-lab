@@ -4,17 +4,21 @@ import { posts } from '../data/mockDatabase'
 import TimelinePost from './TimelinePost.vue'
 import { Timeframe } from '../types'
 
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
+
 export default defineComponent({
   components: {
     TimelinePost
   },
-  setup() {
+  async setup() {
     const timeframes: Timeframe[] = ['Today', 'This Week', 'This Month']
     const selectedTimeframe = ref<Timeframe>('Today')
 
     const setTimeframe = (timeframe: Timeframe) => {
       selectedTimeframe.value = timeframe
     }
+
+    await delay(2000)
 
     const filteredPosts = computed(() => {
       return posts.filter(post => post.title.includes(selectedTimeframe.value))
