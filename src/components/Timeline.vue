@@ -4,8 +4,6 @@ import TimelinePost from './TimelinePost.vue'
 import { useStore } from '../store'
 import { Post, Timeframe } from '../types'
 
-const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
-
 export default defineComponent({
   components: {
     TimelinePost
@@ -15,6 +13,11 @@ export default defineComponent({
     const selectedTimeframe = ref<Timeframe>('Today')
 
     const store = useStore()
+
+    if (!store.getState().posts.loaded) {
+      await store.fetchPosts()
+    }
+
     const allPosts = store.getState().posts.ids.reduce<Post[]>((acc, id) => {
       const post = store.getState().posts.all[id]
       return acc.concat(post)
@@ -23,8 +26,6 @@ export default defineComponent({
     const setTimeframe = (timeframe: Timeframe) => {
       selectedTimeframe.value = timeframe
     }
-
-    await delay(2000)
 
     const filteredPosts = computed(() => {
       return allPosts.filter(post =>
