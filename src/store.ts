@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { reactive, readonly } from 'vue'
 import { Post } from './types'
 
@@ -31,6 +32,25 @@ class Store {
   public getState() {
     return readonly(this.state)
   }
+
+  async fetchPosts() {
+    const response = await axios.get<Post[]>('/posts')
+    const ids: string[] = []
+    const all: Record<string, Post> = {}
+
+    for (const post of response.data) {
+      ids.push(post.id.toString())
+      all[post.id] = post
+    }
+
+    this.state.posts = {
+      ids,
+      all,
+      loaded: true
+    }
+  }
 }
 
-const store = new Store(initialState)
+const store = new Store(initialState())
+
+export const useStore = () => store

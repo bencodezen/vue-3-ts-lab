@@ -2,7 +2,8 @@
 import { computed, defineComponent, ref } from 'vue'
 import { posts } from '../data/mockDatabase'
 import TimelinePost from './TimelinePost.vue'
-import { Timeframe } from '../types'
+import { useStore } from '../store'
+import { Post, Timeframe } from '../types'
 
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 
@@ -14,6 +15,12 @@ export default defineComponent({
     const timeframes: Timeframe[] = ['Today', 'This Week', 'This Month']
     const selectedTimeframe = ref<Timeframe>('Today')
 
+    const store = useStore()
+    const allPosts = store.getState().posts.ids.reduce<Post[]>((acc, id) => {
+      const post = store.getState().posts.all[id]
+      return acc.concat(post)
+    }, [])
+
     const setTimeframe = (timeframe: Timeframe) => {
       selectedTimeframe.value = timeframe
     }
@@ -21,7 +28,9 @@ export default defineComponent({
     await delay(2000)
 
     const filteredPosts = computed(() => {
-      return posts.filter(post => post.title.includes(selectedTimeframe.value))
+      return allPosts.filter(post =>
+        post.title.includes(selectedTimeframe.value)
+      )
     })
 
     return {
