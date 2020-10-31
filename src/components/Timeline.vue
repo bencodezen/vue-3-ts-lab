@@ -1,6 +1,5 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
-import { posts } from '../data/mockDatabase'
 import TimelinePost from './TimelinePost.vue'
 import { useStore } from '../store'
 import { Post, Timeframe } from '../types'

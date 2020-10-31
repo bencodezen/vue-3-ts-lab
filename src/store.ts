@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { reactive, readonly } from 'vue'
 import { Post } from './types'
+import { todayPost, monthPost, weekPost } from './data/mockDatabase'
 
 interface PostsState {
   ids: string[]
@@ -13,8 +14,16 @@ interface State {
 }
 
 const initialPostsState = (): PostsState => ({
-  all: {},
-  ids: [],
+  all: {
+    [todayPost.id]: todayPost,
+    [weekPost.id]: weekPost,
+    [monthPost.id]: monthPost
+  },
+  ids: [
+    todayPost.id.toString(),
+    weekPost.id.toString(),
+    monthPost.id.toString()
+  ],
   loaded: false
 })
 
