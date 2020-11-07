@@ -1,3 +1,7 @@
+---
+Project has been migrated to [Vue.js 3 Lab](https://github.com/bencodezen/vue-3-lab)
+---
+
 # Vue.js 3 with TypeScript Laboratory
 
 A place to hold random Vue.js 3 experiments.
